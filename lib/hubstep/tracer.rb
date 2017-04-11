@@ -121,11 +121,13 @@ module HubStep
       port = ENV["LIGHTSTEP_COLLECTOR_PORT"]
       encryption = ENV["LIGHTSTEP_COLLECTOR_ENCRYPTION"]
       access_token = ENV["LIGHTSTEP_ACCESS_TOKEN"]
+      verbosity = ENV.fetch("LIGHTSTEP_HTTPJSON_VERBOSITY", 0)
 
       if host && port && encryption && access_token
         LightStep::Transport::HTTPJSON.new(host: host,
                                            port: port.to_i,
                                            encryption: encryption,
+                                           verbosity: verbosity,
                                            access_token: access_token)
       else
         LightStep::Transport::Nil.new
